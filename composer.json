@@ -1,0 +1,30 @@
+{
+    "name": "concept-labs/event-dispatcher",
+    "description": "(C)oncept-Labs Cache",
+    "keywords": ["php","cache","psr","psr-6"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Victor Galitsky",
+            "email": "concept.galitsky@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.0.0",
+    },
+    "autoload": {
+        "psr-4": {
+            "Cl\\EventDispatcher\\": "src/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0",
+        "squizlabs/php_codesniffer": "^3.0.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Cl\\EventDispatcher\\Test\\": "src/test/"
+        }
+    }
+
+}
