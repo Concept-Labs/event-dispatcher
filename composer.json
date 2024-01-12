@@ -10,8 +10,9 @@
         }
     ],
     "require": {
-        "php": ">=8.0.0",
-        "psr/event-dispatcher": "^1"
+        "php": "^8.0",
+        "psr/event-dispatcher": "^1",
+        "concept-labs/invoke": "^1"
     },
     "autoload": {
         "psr-4": {
@@ -24,7 +25,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Cl\\EventDispatcher\\Test\\": "src/test/"
+            "Cl\\EventDispatcher\\Test\\": "test/"
         }
     }
 
