@@ -12,11 +12,15 @@
     "require": {
         "php": "^8.0",
         "psr/event-dispatcher": "^1",
-        "concept-labs/invoke": "^1"
+        "psr/simple-cache": "^1",
+        "concept-labs/able": "^1",
+        "concept-labs/container": "^1",
+        "concept-labs/invoker": "^1"
     },
     "autoload": {
         "psr-4": {
-            "Cl\\EventDispatcher\\": "src/"
+            "Cl\\EventDispatcher\\": "src/",
+            "Cl\\EventDispatcher\\Test\\": "test/"
         }
     },
     "require-dev": {
