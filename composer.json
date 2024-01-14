@@ -11,9 +11,6 @@
     ],
     "require": {
         "php": "^8.0",
-        "psr/event-dispatcher": "^1",
-        "psr/simple-cache": "^3",
-        "concept-labs/able": "^1",
     },
     "autoload": {
         "psr-4": {
