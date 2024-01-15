@@ -6,9 +6,8 @@ use PHPUnit\Framework\TestCase;
 use Cl\EventDispatcher\EventDispatcher;
 use Cl\EventDispatcher\Dispatcher\Exception\EventPropagationIsStoppedException;
 use Cl\EventDispatcher\Test\Asset\EventTest;
-
+use Cl\EventDispatcher\Test\Asset\EventTestStoppable;
 use Psr\EventDispatcher\ListenerProviderInterface;
-use Psr\EventDispatcher\StoppableEventInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -16,7 +15,6 @@ use Psr\Log\LoggerInterface;
  */
 class EventDispatcherTest extends TestCase
 {
-    // Тест на додавання та виклик слухача
     public function testAddAndDispatchListener()
     {
         $listenerProvider = $this->createMock(ListenerProviderInterface::class);
@@ -26,11 +24,11 @@ class EventDispatcherTest extends TestCase
 
         
         $event = new EventTest();
-        $listener = function ($event) {
+        $listener = static function ($event) {
             $event->handled = true;
         };
         $listenerProvider->method('getListenersForEvent')->willReturn([$listener]);
-
+        
         
         $resultEvent = $eventDispatcher->dispatch($event);
 
@@ -47,24 +45,21 @@ class EventDispatcherTest extends TestCase
 
         $eventDispatcher = new EventDispatcher($listenerProvider, null, $logger);
 
-        $event = new class implements StoppableEventInterface {
-            public bool $stopped = false;
-            public string $property = 'not handled';
-            function isPropagationStopped(): bool {
-                return $this->stopped;
-            }
-        };
-        $listener = function ($event) {
+        $event = new EventTestStoppable();
+        $event->handledStr = 'not handled';
+
+        $listener = static function (&$event) {
             $event->stopped = true;
         };
-        $listener2 = function ($event) {
-            $event->property = 'handled by listener2';
+
+        $listener2 = static function (&$event) {
+            $event->handledStr = 'handled by listener2';
         };
         $listenerProvider->method('getListenersForEvent')->willReturn([$listener, $listener2]);
 
         $resultEvent = $eventDispatcher->dispatch($event);
 
-        $this->assertEquals('not handled', $event->property);
+        $this->assertEquals('not handled', $event->handledStr);
         $this->assertSame($event, $resultEvent);
     }
 
@@ -76,13 +71,12 @@ class EventDispatcherTest extends TestCase
         $eventDispatcher = new EventDispatcher($listenerProvider, null, $logger);
 
         
-        $listener = function ($event) {
-            throw new EventPropagationIsStoppedException();
-        };
-        $listener = function ($event) {
+        $listener = static function ($event) {
             throw new EventPropagationIsStoppedException();
         };
         $listenerProvider->method('getListenersForEvent')->willReturn([$listener]);
+
+        $event = new EventTestStoppable();
 
         $resultEvent = $eventDispatcher->dispatch($event);
 

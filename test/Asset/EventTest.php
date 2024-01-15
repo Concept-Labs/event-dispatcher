@@ -5,5 +5,5 @@ class EventTest
 {
 
     public bool $handled = false;
-    public string $property = 'not handled';
+    public string $handledStr = 'not handled';
 }

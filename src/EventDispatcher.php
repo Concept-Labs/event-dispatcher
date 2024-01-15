@@ -60,7 +60,7 @@ class EventDispatcher implements EventDispatcherInterface, LoggerAwareInterface
         /** @var callable $listener */
         foreach ($this->getListenersForEvent($event) as $listener) {
             try{
-
+                
                 $this->beforeDispatch($event);
 
                 $this->invokeListener($listener, $event);
@@ -112,13 +112,17 @@ class EventDispatcher implements EventDispatcherInterface, LoggerAwareInterface
      *
      * @return mixed The result of the listener invocation.
      *
-     * @throws \Throwable The invoker is able to throw its own exception
+     * @throws \Throwable An invoker is able to throw its own exception
      * 
      */
-    protected function invokeListener(callable|string $listener, object &$event): mixed
+    protected function invokeListener(callable|string $listener, object $event): mixed
     {
-        $invoker =  $this->getInvoker();
-        return $invoker($listener, $event);
+        $invoker = $this->getInvoker();
+
+        // Wrap to detatch $this from dispatcher
+        return (static function () use ($invoker, $listener, $event) {
+            return $invoker($listener, $event);
+        })();
         //return $listener($event); //simple invocation
     }
 
@@ -132,17 +136,7 @@ class EventDispatcher implements EventDispatcherInterface, LoggerAwareInterface
         return $this->invoker;
     }
 
-    /**
-     * Set the invoker
-     *
-     * @param callable $invoker
-     * 
-     * @return void
-     */
-    public function setInvoker(callable $invoker): void
-    {
-        $this->invoker = $invoker;
-    }
+
 
     /**
      * Assert event propagation
@@ -189,8 +183,8 @@ class EventDispatcher implements EventDispatcherInterface, LoggerAwareInterface
      */
     protected function getDefaultInvoker(): callable
     {
-        return function (callable $callable, &$event) {
-            return call_user_func_array($callable, [&$event]);
+        return static function (callable $callable, $event) {
+            return call_user_func_array($callable, [$event]);
         };
         
     }

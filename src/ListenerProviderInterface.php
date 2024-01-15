@@ -6,5 +6,5 @@ use Psr\EventDispatcher\ListenerProviderInterface as PsrListenerProviderInterfac
 
 interface ListenerProviderInterface extends PsrListenerProviderInterface
 {
-
+    function attach(object|string $event, callable $listener);
 }
