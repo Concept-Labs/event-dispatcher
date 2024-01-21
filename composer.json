@@ -11,7 +11,9 @@
     ],
     "require": {
         "php": "^8.0",
-        "concept-labs/container": "^1.0"
+        "concept-labs/able": "^1.0",
+        "concept-labs/container": "^1.0",
+        "concept-labs/context": "^1.0"
     },
     "autoload": {
         "psr-4": {
