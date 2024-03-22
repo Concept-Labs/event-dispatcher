@@ -1,25 +1,12 @@
 <?php
-declare(strict_types=1);
-namespace Cl\EventDispatcher\Event;
+namespace Ctl\EventDispatcher\Event;
 
-interface EventInterface
+
+use Psr\EventDispatcher\StoppableEventInterface;
+
+interface EventInterface Extends StoppableEventInterface
 {
-    //function isStoppable(): bool;
-    //function getCode();
-    //function 
+    public function getContext();
 
-    /**
-     * Sets a context
-     *
-     * @param mixed $context
-     * @return void
-     */
-    function setContext(mixed $context): void;
-
-    /**
-     * Gets a context
-     *
-     * @return mixed
-     */
-    function getContext(): mixed;
+    public function setStopPropagation(bool $stop = true);
 }

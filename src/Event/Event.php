@@ -1,11 +1,42 @@
 <?php
-declare(strict_types=1);
-namespace Cl\EventDispatcher\Event;
+namespace Ctl\EventDispatcher\Event;
 
-use Cl\Able\Contextable\ContextableInterface;
-use Cl\Able\Contextable\ContextableTrait;
-
-class Event implements EventInterface, ContextableInterface
+class Event implements EventInterface
 {
-    use ContextableTrait;
+    protected array $context = [];
+
+    protected bool $stopped = false;
+
+    public function __construct(array $context = [])
+    {
+        $this->context = $context;
+    }
+
+    public function setContext(array $context): void
+    {
+        $this->context = $context;
+    }
+
+    public function withContext(array $context): EventInterface
+    {
+        $event = clone $this;
+        $event->setContext($context);
+
+        return $event;
+    }
+
+    public function getContext()
+    {
+        return $this->context;
+    }
+
+    public function isPropagationStopped(): bool
+    {
+        return $this->stopped;
+    }
+
+    public function setStopPropagation(bool $stop = true)
+    {
+        $this->stopped = $stop;
+    }
 }

@@ -1,10 +1,16 @@
 <?php
-declare(strict_types=1);
-namespace Cl\EventDispatcher;
+namespace Ctl\EventDispatcher;
 
 use Psr\EventDispatcher\ListenerProviderInterface as PsrListenerProviderInterface;
 
 interface ListenerProviderInterface extends PsrListenerProviderInterface
 {
-    function attach(object|string $event, callable $listener);
+    /**
+     * Attach the listener
+     *
+     * @param string $type
+     * @param callable $listener
+     * @return void
+     */
+    public function attach(string $type, $listener);
 }

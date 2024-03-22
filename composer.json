@@ -1,7 +1,7 @@
 {
     "name": "concept-labs/event-dispatcher",
     "description": "(C)oncept-Labs Cache",
-    "keywords": ["php","cache","psr","psr-6"],
+    "keywords": ["php","event dispatcher","psr","psr-14"],
     "license": "MIT",
     "authors": [
         {
@@ -10,24 +10,17 @@
         }
     ],
     "require": {
-        "php": "^8.0",
-        "concept-labs/able": "^1.0",
-        "concept-labs/container": "^1.0",
-        "concept-labs/context": "^1.0"
+        "php": "^7.2|^7.4|^8.0"
     },
     "autoload": {
         "psr-4": {
-            "Cl\\EventDispatcher\\": "src/",
-            "Cl\\EventDispatcher\\Test\\": "test/"
+            "Ctl\\EventDispatcher\\": "src/"
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^10.0",
-        "squizlabs/php_codesniffer": "^3.0.0"
     },
     "autoload-dev": {
         "psr-4": {
-            "Cl\\EventDispatcher\\Test\\": "test/"
         }
     }
 
