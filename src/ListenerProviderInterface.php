@@ -1,5 +1,5 @@
 <?php
-namespace Ctl\EventDispatcher;
+namespace Concept\EventDispatcher;
 
 use Psr\EventDispatcher\ListenerProviderInterface as PsrListenerProviderInterface;
 

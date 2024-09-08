@@ -1,9 +1,9 @@
 <?php
-namespace Ctl\EventDispatcher;
+namespace Concept\EventDispatcher;
 
 use Psr\EventDispatcher\ListenerProviderInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
-use Ctl\EventDispatcher\EventDispatcherInterface;
+use Concept\EventDispatcher\EventDispatcherInterface;
 
 class EventDispatcher implements EventDispatcherInterface
 {

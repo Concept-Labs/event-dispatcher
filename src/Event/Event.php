@@ -1,5 +1,5 @@
 <?php
-namespace Ctl\EventDispatcher\Event;
+namespace Concept\EventDispatcher\Event;
 
 class Event implements EventInterface
 {
