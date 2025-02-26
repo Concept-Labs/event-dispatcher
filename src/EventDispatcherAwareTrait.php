@@ -1,10 +1,11 @@
 <?php
 namespace Concept\EventDispatcher;
+
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 trait EventDispatcherAwareTrait
 {
-    protected ?EventDispatcherInterface $eventDispatcher = null;
+    protected ?EventDispatcherInterface $___eventDispatcher = null;
 
     /**
      * Set an event dispatcher
@@ -15,7 +16,17 @@ trait EventDispatcherAwareTrait
      */
     public function setEventDispatcher(EventDispatcherInterface $eventDispatcher): void
     {
-        $this->eventDispatcher = $eventDispatcher;
+        $this->___eventDispatcher = $eventDispatcher;
+    }
+
+    /**
+     * Get the event dispatcher
+     *
+     * @return EventDispatcherInterface
+     */
+    public function getEventDispatcher(): EventDispatcherInterface
+    {
+        return $this->___eventDispatcher;
     }
 
 }

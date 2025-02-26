@@ -1,5 +1,6 @@
 <?php
 namespace Concept\EventDispatcher;
+
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 interface EventDispatcherAwareInterface
@@ -13,5 +14,12 @@ interface EventDispatcherAwareInterface
      * @return void
      */
     public function setEventDispatcher(EventDispatcherInterface $eventDispatcher): void;
+
+    /**
+     * Get the event dispatcher
+     *
+     * @return EventDispatcherInterface
+     */
+    public function getEventDispatcher(): EventDispatcherInterface;
     
 }

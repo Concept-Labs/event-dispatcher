@@ -1,33 +1,31 @@
 <?php
 namespace Concept\EventDispatcher\Event;
 
+use Concept\EventDispatcher\Event\Context\EventContext;
+use Concept\EventDispatcher\Event\Context\EventContextInterface;
+
 class Event implements EventInterface
 {
-    protected array $context = [];
 
+    protected ?EventContextInterface $context = null;
     protected bool $stopped = false;
 
     public function __construct(array $context = [])
     {
-        $this->context = $context;
+        $this->getContext()->setMultiple($context);
     }
 
-    public function setContext(array $context): void
+    public function attach(string $id, mixed $contextValue): static
     {
-        $this->context = $context;
+        $this->getContext()->set($id, $contextValue);
+
+        return $this;
     }
 
-    public function withContext(array $context): EventInterface
-    {
-        $event = clone $this;
-        $event->setContext($context);
 
-        return $event;
-    }
-
-    public function getContext()
+    public function getContext(): EventContextInterface
     {
-        return $this->context;
+        return $this->context ??= new EventContext();
     }
 
     public function isPropagationStopped(): bool
@@ -38,5 +36,10 @@ class Event implements EventInterface
     public function setStopPropagation(bool $stop = true)
     {
         $this->stopped = $stop;
+    }
+
+    public function stopPropagation()
+    {
+        $this->setStopPropagation();
     }
 }

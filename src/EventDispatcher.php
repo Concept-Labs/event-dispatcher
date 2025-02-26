@@ -3,41 +3,41 @@ namespace Concept\EventDispatcher;
 
 use Psr\EventDispatcher\ListenerProviderInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
-use Concept\EventDispatcher\EventDispatcherInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 class EventDispatcher implements EventDispatcherInterface
 {
 
     /**
-     * @var ListenerProviderInterface[] The listener providers
+     * EventDispatcher constructor.
+     * @param ListenerProviderInterface $provider
      */
-    protected array $providers = [];
+    public function __construct(private ListenerProviderInterface $provider)
+    {
+    }
 
     /**
-     * {@inheritDoc}
+     * Dispatches an event to all registered listeners
+     * 
+     * @param object $event
+     * 
+     * @return object
+     * 
+     * @throws \Throwable
      */
-    public function addProvider(ListenerProviderInterface $listener): void
+    public function dispatch(object $event): object
     {
-        $this->providers[] = $listener;
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    public function dispatch(object $event)
-    {
-        foreach ($this->providers as $provider) {
-            foreach ($provider->getListenersForEvent($event) as $listener) {
-                if ($event instanceof StoppableEventInterface && $event->isPropagationStopped()) {
-                    return $event;
-                }
-                //@TODO:VG try-catch
-                //try {
-                    //call_user_func_array($listener, [$event]); //php7.4 compability
-                    $listener($event);
-                //} 
+        foreach ($this->provider->getListenersForEvent($event) as $listener) {
+            if ($event instanceof StoppableEventInterface && $event->isPropagationStopped()) {
+                return $event;
+            }
+            try {
+                $listener($event);
+            } catch (\Throwable $e) {
+                error_log("[EventDispatcher] Exception in event listener: " . $e->getMessage());
+                throw $e;
             }
         }
+        return $event;
     }
-
 }
