@@ -4,12 +4,7 @@ namespace Concept\EventDispatcher\Listener;
 
 use Concept\Singularity\Contract\Behavior\ResetableInterface;
 use Concept\Singularity\Contract\Lifecycle\PrototypeInterface;
-use Concept\Singularity\Plugin\Attribute\Plugin;
-use Concept\Singularity\Plugin\ContractEnforce\Common\CommonTest;
-use Concept\Singularity\Plugin\ContractEnforce\Enforcement;
 
-#[Plugin(CommonTest::class, false)]
-#[Plugin(Enforcement::class, false)]
 class ListenerRegistry 
     implements 
     ListenerRegistryInterface,
