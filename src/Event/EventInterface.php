@@ -8,7 +8,11 @@ interface EventInterface Extends StoppableEventInterface
 {
 
     /**
-     * Attach a context value
+     * Attach a value to the event context
+     *
+     * @param string $id
+     * @param mixed $contextValue
+     * @return static
      */
     public function attach(string $id, mixed $contextValue): static;
 

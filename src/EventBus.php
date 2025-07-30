@@ -41,7 +41,7 @@ class EventBus implements EventBusInterface, SharedInterface
     /**
      * {@inheritDoc}
      */
-    public function dispatch(EventInterface $event): static
+    public function dispatch(EventInterface $event): EventInterface
     {
         if ($event instanceof StoppableEventInterface && $event->isPropagationStopped()) {
             return $event;
@@ -49,7 +49,7 @@ class EventBus implements EventBusInterface, SharedInterface
 
         $this->getEventDispatcher()->dispatch($event);
         
-        return $this;
+        return $event;
     }
 
     /**

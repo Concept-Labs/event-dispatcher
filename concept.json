@@ -5,11 +5,16 @@
                 "preference": {
                     "Psr\\EventDispatcher\\EventDispatcherInterface": {
                         "class": "Concept\\EventDispatcher\\EventDispatcher",
-                        "preference": {
-                            "Psr\\EventDispatcher\\ListenerProviderInterface": {
-                                "class": "Concept\\EventDispatcher\\Listener\\ListenerRegistry"
+                        "--singularity": {
+                            "preference": {
+                                "Psr\\EventDispatcher\\ListenerProviderInterface": {
+                                    "class": "Concept\\EventDispatcher\\Listener\\ListenerRegistry"
+                                }
                             }
                         }
+                    },
+                    "Psr\\EventDispatcher\\ListenerProviderInterface": {
+                        "class": "Concept\\EventDispatcher\\Listener\\ListenerRegistry"
                     },
                     "Concept\\EventDispatcher\\Listener\\ListenerRegistryInterface": {
                         "class": "Concept\\EventDispatcher\\Listener\\ListenerRegistry"

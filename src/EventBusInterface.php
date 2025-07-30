@@ -31,8 +31,8 @@ interface EventBusInterface
      * 
      * @param EventInterface $event The event
      * 
-     * @return static
+     * @return EventInterface
      */
-    public function dispatch(EventInterface $event): static;
+    public function dispatch(EventInterface $event): EventInterface;
 
 }
