@@ -4,12 +4,13 @@ namespace Concept\EventDispatcher\Listener;
 
 use Concept\Singularity\Contract\Behavior\ResetableInterface;
 use Concept\Singularity\Contract\Lifecycle\PrototypeInterface;
+use Concept\Singularity\Contract\Lifecycle\SharedInterface;
 
 class ListenerRegistry 
     implements 
     ListenerRegistryInterface,
     ResetableInterface,
-    PrototypeInterface
+    SharedInterface
 
 {
     /**
@@ -18,14 +19,6 @@ class ListenerRegistry
      * @var array<string, array{priority: int, listener: callable}[]> The callable listener
      */
     protected array $listeners = [];
-
-    /**
-     * {@inheritDoc}
-     */
-    public function prototype(): static
-    {
-        return (clone $this)->reset();
-    }
 
     /**
      * {@inheritDoc}

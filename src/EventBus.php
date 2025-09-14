@@ -1,19 +1,20 @@
 <?php
 namespace Concept\EventDispatcher;
 
+use Concept\Config\ConfigInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
+use Psr\EventDispatcher\ListenerProviderInterface;
 use Concept\EventDispatcher\Event\EventInterface;
 use Concept\EventDispatcher\Listener\ListenerRegistryInterface;
 use Concept\Singularity\Contract\Lifecycle\SharedInterface;
-use Psr\EventDispatcher\ListenerProviderInterface;
-use Concept\Singularity\Contract\Factory\LazyGhostInterface;
 
 class EventBus implements EventBusInterface, SharedInterface
 {
     public function __construct(
         private ListenerProviderInterface $listenerRegistry,
-        private EventDispatcherInterface $eventDispatcher
+        private EventDispatcherInterface $eventDispatcher,
+        private ConfigInterface $config
     )
     {
     }

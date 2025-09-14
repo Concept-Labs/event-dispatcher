@@ -4,8 +4,9 @@ namespace Concept\EventDispatcher;
 use Psr\EventDispatcher\ListenerProviderInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Concept\Singularity\Contract\Lifecycle\SharedInterface;
 
-class EventDispatcher implements EventDispatcherInterface
+class EventDispatcher implements EventDispatcherInterface, SharedInterface
 {
 
     /**
@@ -14,6 +15,11 @@ class EventDispatcher implements EventDispatcherInterface
      */
     public function __construct(private ListenerProviderInterface $provider)
     {
+    }
+
+    protected function getListenerProvider(): ListenerProviderInterface
+    {
+        return $this->provider;
     }
 
     /**
@@ -27,17 +33,14 @@ class EventDispatcher implements EventDispatcherInterface
      */
     public function dispatch(object $event): object
     {
-        foreach ($this->provider->getListenersForEvent($event) as $listener) {
+        foreach ($this->getListenerProvider()->getListenersForEvent($event) as $listener) {
             if ($event instanceof StoppableEventInterface && $event->isPropagationStopped()) {
                 return $event;
             }
-            try {
-                $listener($event);
-            } catch (\Throwable $e) {
-                error_log("[EventDispatcher] Exception in event listener: " . $e->getMessage());
-                throw $e;
-            }
+
+            $listener($event);
         }
+        
         return $event;
     }
 }

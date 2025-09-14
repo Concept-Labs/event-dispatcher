@@ -17,7 +17,7 @@ class Event implements EventInterface
      */
     public function __construct(array $context = [])
     {
-        $this->getContext()->setMultiple($context);
+        $this->getContext()->inflate($context);
     }
 
     /**
@@ -49,16 +49,23 @@ class Event implements EventInterface
     /**
      * {@inheritDoc}
      */
-    public function setStopPropagation(bool $stop = true)
-    {
-        $this->stopped = $stop;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function stopPropagation()
     {
         $this->setStopPropagation();
+    }
+
+    /**
+     * Set stop propagation
+     * Set stop propagation
+     *
+     * @param bool $stop
+     *
+     * @return static
+     */
+    protected function setStopPropagation(bool $stop = true): static
+    {
+        $this->stopped = $stop;
+
+        return $this;
     }
 }

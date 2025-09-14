@@ -4,14 +4,7 @@
             "concept-labs/event-dispatcher": {
                 "preference": {
                     "Psr\\EventDispatcher\\EventDispatcherInterface": {
-                        "class": "Concept\\EventDispatcher\\EventDispatcher",
-                        "--singularity": {
-                            "preference": {
-                                "Psr\\EventDispatcher\\ListenerProviderInterface": {
-                                    "class": "Concept\\EventDispatcher\\Listener\\ListenerRegistry"
-                                }
-                            }
-                        }
+                        "class": "Concept\\EventDispatcher\\EventDispatcher"
                     },
                     "Psr\\EventDispatcher\\ListenerProviderInterface": {
                         "class": "Concept\\EventDispatcher\\Listener\\ListenerRegistry"

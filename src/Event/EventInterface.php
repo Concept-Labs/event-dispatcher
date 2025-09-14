@@ -24,15 +24,6 @@ interface EventInterface Extends StoppableEventInterface
     public function getContext(): EventContextInterface;
 
     /**
-     * Set the event name
-     *
-     * @param string $context The event name
-     * 
-     * @return void
-     */
-    public function setStopPropagation(bool $stop = true);
-
-    /**
      * Stop propagation
      *
      * @return void

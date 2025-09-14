@@ -26,12 +26,4 @@ interface ListenerRegistryInterface extends ListenerProviderInterface
      */
     public function unregister(string $type, callable $listener): static;
 
-    /**
-     * Get the listeners for an event
-     * 
-     * @param object $event The event
-     * 
-     * @return iterable The listeners
-     */
-    public function getListenersForEvent(object $event): iterable;
 }
