@@ -1,0 +1,9 @@
+{
+    "listeners": {
+        "Concept\\EventDispatcher\\Event\\Init\\EventInit": {
+            "Concept\\EventDispatcher\\Listener\\Init\\InitEventListener": {
+                "priority": 0
+            }
+        }
+    }
+}

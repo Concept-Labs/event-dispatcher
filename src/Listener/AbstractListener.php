@@ -3,10 +3,10 @@
 namespace Concept\EventDispatcher\Listener;
 
 use Concept\EventDispatcher\Contract\EventBusAwareTrait;
+use Concept\EventDispatcher\Contract\EventListenerInterface;
 use Concept\EventDispatcher\Contract\EventListenerTrait;
-use Concept\EventDispatcher\Contract\EventListenterInterface;
 
-abstract class AbstractListener implements EventListenterInterface
+abstract class AbstractListener implements EventListenerInterface
 {
     use EventBusAwareTrait;
     use EventListenerTrait;

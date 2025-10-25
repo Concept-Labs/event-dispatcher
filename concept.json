@@ -1,26 +1,5 @@
 {
-    "singularity": {
-        "package": {
-            "concept-labs/event-dispatcher": {
-                "preference": {
-                    "Psr\\EventDispatcher\\EventDispatcherInterface": {
-                        "class": "Concept\\EventDispatcher\\EventDispatcher"
-                    },
-                    "Psr\\EventDispatcher\\ListenerProviderInterface": {
-                        "class": "Concept\\EventDispatcher\\Listener\\ListenerRegistry"
-                    },
-                    "Concept\\EventDispatcher\\Listener\\ListenerRegistryInterface": {
-                        "class": "Concept\\EventDispatcher\\Listener\\ListenerRegistry"
-                    },
-                    "Concept\\EventDispatcher\\EventBusInterface": {
-                        "class": "Concept\\EventDispatcher\\EventBus"
-                    },
-                    "Concept\\EventDispatcher\\Event\\Context\\EventContextInterface": {
-                        "class": "Concept\\EventDispatcher\\Event\\Context\\EventContext"
-                    }
-                }
-
-            }
-        }
-    }
+    "singularity": "@include(etc/sdi.json)",
+    "middleware": "@include(etc/middleware.json)",
+    "event-bus": "@include(etc/event-bus.json)"
 }

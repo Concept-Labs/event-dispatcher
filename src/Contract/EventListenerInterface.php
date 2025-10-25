@@ -1,7 +1,7 @@
 <?php
 namespace Concept\EventDispatcher\Contract;
 
-interface EventListenterInterface extends EventBusAwareInterface
+interface EventListenerInterface extends EventBusAwareInterface
 {
     /**
      * Handle an event
