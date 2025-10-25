@@ -1,0 +1,29 @@
+{
+    "package": {
+        "concept-labs/event-dispatcher": {
+            "preference": {
+                "Psr\\EventDispatcher\\EventDispatcherInterface": {
+                    "class": "Concept\\EventDispatcher\\EventDispatcher"
+                },
+                "Psr\\EventDispatcher\\ListenerProviderInterface": {
+                    "class": "Concept\\EventDispatcher\\Listener\\ListenerRegistry"
+                },
+                "Concept\\EventDispatcher\\Listener\\ListenerFactoryInterface": {
+                    "class": "Concept\\EventDispatcher\\Listener\\ListenerFactory"
+                },
+                "Concept\\EventDispatcher\\Listener\\ListenerRegistryInterface": {
+                    "class": "Concept\\EventDispatcher\\Listener\\ListenerRegistry"
+                },
+                "Concept\\EventDispatcher\\EventBusInterface": {
+                    "class": "Concept\\EventDispatcher\\EventBus"
+                },
+                "Concept\\EventDispatcher\\Event\\Context\\EventContextInterface": {
+                    "class": "Concept\\EventDispatcher\\Event\\Context\\EventContext"
+                },
+                "Concept\\EventDispatcher\\Event\\EventFactoryInterface": {
+                    "class": "Concept\\EventDispatcher\\Event\\EventFactory"
+                }
+            }
+        }
+    }
+}

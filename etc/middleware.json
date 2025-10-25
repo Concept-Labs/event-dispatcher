@@ -1,0 +1,7 @@
+{
+    "concept-labs/event-dispatcher:event-bus": {
+        "preference": "Concept\\EventDispatcher\\Middleware\\EventBusMiddleware",
+        "priority": 0
+    }
+    
+}

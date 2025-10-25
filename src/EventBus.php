@@ -1,10 +1,11 @@
 <?php
 namespace Concept\EventDispatcher;
 
-use Concept\Config\ConfigInterface;
+use Concept\EventDispatcher\Event\EventFactoryInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
 use Psr\EventDispatcher\ListenerProviderInterface;
+
 use Concept\EventDispatcher\Event\EventInterface;
 use Concept\EventDispatcher\Listener\ListenerRegistryInterface;
 use Concept\Singularity\Contract\Lifecycle\SharedInterface;
@@ -14,7 +15,8 @@ class EventBus implements EventBusInterface, SharedInterface
     public function __construct(
         private ListenerProviderInterface $listenerRegistry,
         private EventDispatcherInterface $eventDispatcher,
-        private ConfigInterface $config
+        private EventFactoryInterface $eventFactory
+        //private ConfigInterface $config
     )
     {
     }
@@ -25,27 +27,36 @@ class EventBus implements EventBusInterface, SharedInterface
     public function register(string $type, callable $listener, int $priority = 0): static
     {
         $this->getRegistry()->register($type, $listener, $priority);
-        
+
         return $this;
     }
+
 
     /**
      * {@inheritDoc}
      */
-    public function unregister(string $type, callable $listener): static
+    public function listen(string $type, callable $listener, int $priority = 0): static
     {
-        $this->getRegistry()->unregister($type, $listener);
-        
+        $this->getRegistry()->register($type, $listener, $priority);
+
         return $this;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function dispatch(EventInterface $event): EventInterface
+    public function dispatch(EventInterface|string $event, array $context = []): EventInterface
     {
         if ($event instanceof StoppableEventInterface && $event->isPropagationStopped()) {
             return $event;
+        }
+
+        if (is_string($event)) {
+            $event = $this->getEventFactory()->create($event);
+        }
+
+        if (!empty($context)) {
+            $event->getContext()->inflate($context);
         }
 
         $this->getEventDispatcher()->dispatch($event);
@@ -71,5 +82,10 @@ class EventBus implements EventBusInterface, SharedInterface
     protected function getEventDispatcher(): EventDispatcherInterface
     {
         return $this->eventDispatcher;
+    }
+
+    protected function getEventFactory(): EventFactoryInterface
+    {
+        return $this->eventFactory;
     }
 }

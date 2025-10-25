@@ -5,7 +5,12 @@ use Concept\EventDispatcher\Event\EventInterface;
 
 interface EventBusInterface
 {
+
+    const CONFIG_NODE = 'event-bus';
+    const CONFIG_NODE_LISTENERS = 'listeners';
+
     /**
+     * @deprecated Use listen() instead
      * Register a listener to an event type
      * 
      * @param string $type The event type
@@ -16,23 +21,26 @@ interface EventBusInterface
      */
     public function register(string $type, callable $listener, int $priority = 0): static;
 
+
     /**
-     * Unregister a listener from an event type
+     * Register a listener to an event type
      * 
      * @param string $type The event type
      * @param callable $listener The listener
+     * @param int $priority The priority
      * 
      * @return static
      */
-    public function unregister(string $type, callable $listener): static;
+    public function listen(string $type, callable $listener, int $priority = 0): static;
 
     /**
      * Dispatch an event
      * 
-     * @param EventInterface $event The event
+     * @param EventInterface|string $event The event or event service id (class name or registered service id)
+     * @param array $context The event context
      * 
      * @return EventInterface
      */
-    public function dispatch(EventInterface $event): EventInterface;
+    public function dispatch(EventInterface|string $event, array $context = []): EventInterface;
 
 }
